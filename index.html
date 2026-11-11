@@ -150,7 +150,7 @@
   <section id="welcomeSection" class="welcome">
     <p class="subtitle" style="margin:0">Self checkout</p>
     <h1>Please make your purchase here</h1>
-    <p class="lead">Sugar-free electrolyte hydration, ready when you are. Pick your flavours, pay with PayNow and get your product instantly.</p>
+    <p class="lead">Sugar-free electrolyte hydration, ready when you are. Pick your flavours, pay with PayNow and get your invoice instantly.</p>
     <div class="slider" id="slider">
       <button class="s-arrow prev" id="sPrev" aria-label="Previous">‹</button>
       <button class="s-arrow next" id="sNext" aria-label="Next">›</button>
@@ -275,11 +275,11 @@ let PAYNOW_QR_IMAGE = "";
 let BUSINESS = { name:"Gumazing Hydration", legal:"Eternal Mark Singapore Pte. Ltd.", uen:"UEN 202102866D",
                  email:"hello@gumazinghydration.com", web:"gumazinghydration.com" };
 let PRODUCTS = [
-  { id:"BR1", name:"Berry Revive – Single Box", desc:"Sugar-free · 14 sticks", price:35,
+  { id:"BR1", name:"Berry Revive – Single Box", desc:"Sugar-free · 14 sticks", price:31.50, was:35,
     img:"Blackcurrant_BLK_01.png" },
-  { id:"ZL1", name:"Zesty Lime – Single Box", desc:"Sugar-free · 14 sticks", price:35,
+  { id:"ZL1", name:"Zesty Lime – Single Box", desc:"Sugar-free · 14 sticks", price:31.50, was:35,
     img:"Green_BLK_01.png" },
-  { id:"CZ1", name:"Citrus Zest – Single Box", desc:"Sugar-free · 14 sticks", price:35,
+  { id:"CZ1", name:"Citrus Zest – Single Box", desc:"Sugar-free · 14 sticks", price:31.50, was:35,
     img:"Orange_BLK_01.png" }
 ];
 /* Built-in product photos: always shown, even if an image file or URL is missing */
@@ -530,7 +530,7 @@ function buildSlider(){
   list.forEach((p, i) => $("slider").insertAdjacentHTML("beforeend", `
     <div class="slide${i === 0 ? " active" : ""}">
       <img src="${imgFor(p)}" alt="${p.name}" onerror="imgFallback(this,'${p.id}')">
-      <div class="cap"><div><b>${p.name}</b><span>${p.desc || ""}</span></div><div class="p">${money(p.price)}</div></div>
+      <div class="cap"><div><b>${p.name}</b><span>${p.desc || ""}</span></div><div class="p">${p.was ? `<span style="color:#999;text-decoration:line-through;font-size:1rem;font-weight:600;margin-right:8px">${money(p.was)}</span>` : ""}${money(p.price)}</div></div>
     </div>`));
   $("sDots").innerHTML = list.map((_, i) => `<button class="${i === 0 ? "active" : ""}" data-i="${i}" aria-label="Slide ${i+1}"></button>`).join("");
   $("sDots").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { goSlide(+b.dataset.i); startSlider(); }));
